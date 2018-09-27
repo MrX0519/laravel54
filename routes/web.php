@@ -24,6 +24,11 @@ Route::post('/register','\App\Http\Controllers\RegisterController@register');
 Route::get('/login','\App\Http\Controllers\LoginController@index');
 //登录行为
 Route::post('/login','\App\Http\Controllers\LoginController@login');
+
+
+Route::group(['middleware' => 'auth:web'],function(){
+
+
 //登出行为
 Route::get('/logout','\App\Http\Controllers\LoginController@logout');
 //个人设置页面
@@ -32,13 +37,13 @@ Route::get('/user/me/setting','\App\Http\Controllers\UserController@setting');
 Route::post('/user/me/setting','\App\Http\Controllers\UserController@settingStore');
 
 
-
-
 //文章列表
 Route::get('/posts','\App\Http\Controllers\PostController@index');
 //创建文章
 Route::get('/posts/create','\App\Http\Controllers\PostController@create');
 Route::post('/posts','\App\Http\Controllers\PostController@store');
+// 文章搜索页
+Route::get('/posts/search','\App\Http\Controllers\PostController@search');
 //文章詳情
 Route::get('/posts/{post}','\App\Http\Controllers\PostController@show');
 //编辑文章
@@ -48,4 +53,19 @@ Route::put('/posts/{post}','\App\Http\Controllers\PostController@update');
 Route::get('/posts/{post}/delete','\App\Http\Controllers\PostController@delete');
 //图片上传
 Route::post('/posts/image/upload','\App\Http\Controllers\PostController@imageUpload');
+
+//文章评论
+Route::post('/posts/{post}/comment','\App\Http\Controllers\PostController@comment');
+//文章点赞
+Route::get('/posts/{post}/zan','\App\Http\Controllers\PostController@zan');
+//文章取消赞
+Route::get('/posts/{post}/unzan','\App\Http\Controllers\PostController@unzan');
+
+//个人中心
+Route::get('/user/{user}','\App\Http\Controllers\UserController@show');
+Route::post('/user/{user}/fan','\App\Http\Controllers\UserController@fan');
+Route::post('/user/{user}/unfan','\App\Http\Controllers\UserController@unfan');
+
+
+});
 
