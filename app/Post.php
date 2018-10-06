@@ -6,9 +6,11 @@ use App\Model;
 use Laravel\Scout\Searchable;
 use Illuminate\Database\Eloquent\Builder;
 
+
 class Post extends Model
 {
     use Searchable;
+
     protected $table = 'posts';
     
 
@@ -27,7 +29,7 @@ class Post extends Model
         ];
     }
 
-   
+
     //关联用户
     public function user()
     {
@@ -51,7 +53,7 @@ class Post extends Model
         return $this->hasMany(\App\Zan::class);
     }
 
-    //属于某个作者的文章
+
     public function scopeAuthorBy(Builder $query,$user_id)
     {
         return $query->where('user_id',$user_id);
