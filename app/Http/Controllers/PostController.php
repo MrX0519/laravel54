@@ -13,6 +13,9 @@ class PostController extends Controller
     public function index()
     {   
         $posts = Post::orderBy('created_at','DESC')->withCount(['comments','zans'])->paginate(10);
+
+        $posts->load('user');
+        
         return view("post/index", compact('posts'));
     }
 
